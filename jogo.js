@@ -7,6 +7,29 @@ const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
 
 
+const telaInicio = {
+    sprietX: 134,
+    sprietY: 0,
+    lagura: 174,
+    altura: 152,
+    x: (canvas.width / 2) - 174 / 2,
+    y: 50,
+    desenha() {
+        contexto.drawImage(
+            sprites,
+            telaInicio.sprietX, telaInicio.sprietY,
+            telaInicio.lagura, telaInicio.altura,
+            telaInicio.x, telaInicio.y,
+            telaInicio.lagura, telaInicio.altura,
+        );
+
+   
+    },
+};
+
+
+
+
 const chao = {
     sprietX: 0,
     sprietY: 610,
@@ -90,23 +113,60 @@ const flappyBird = {
     },
 };
 
+let telaAtiva = {};
+function mudaDeTela(novaTela) {
+    telaAtiva = novaTela;
+}
+
+const telas = {
+    inicio: {
+        desenha(){
+            
+            planoDeFundo.desenha();
+            chao.desenha();
+            flappyBird.desenha();
+            telaInicio.desenha();
+        },
+
+        click() {
+            mudaDeTela(telas.jogo);
+        },
+
+        atualiza(){
+
+        },
+    },
+
+    jogo: {
+        desenha(){
+            planoDeFundo.desenha();
+            chao.desenha();
+            flappyBird.desenha();
+        },
+
+        atualiza() {
+            flappyBird.atualiza();
+        }
+    },
+
+};
 
 
 function loop() {
 
-    flappyBird.atualiza();
-
-    planoDeFundo.desenha();
-    chao.desenha();
-    flappyBird.desenha();
-    
-
-
-
+    telaAtiva.desenha();
+    telaAtiva.atualiza();
 
     requestAnimationFrame(loop);
-}
+};
 
 
 
+window.addEventListener('click', function() {
+    if (telaAtiva.click) {
+        telaAtiva.click();
+    };
+});
+
+mudaDeTela(telas.inicio);
 loop();
