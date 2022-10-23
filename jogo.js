@@ -48,10 +48,47 @@ const telaGameOver = {
             telaGameOver.x, telaGameOver.y,
             telaGameOver.lagura, telaGameOver.altura,
         );
-
-   
     },
 };
+
+const telaScore = {
+    sprietX: 47,
+    sprietY: 124,
+    lagura: 48,
+    altura: 43,
+    x: (canvas.width / 2) - 175 / 2,
+    y: 135,
+    desenha() {
+        contexto.drawImage(
+            sprites,
+            telaScore.sprietX, telaScore.sprietY,
+            telaScore.lagura, telaScore.altura,
+            telaScore.x, telaScore.y,
+            telaScore.lagura, telaScore.altura,
+        );
+
+
+    },
+    atualiza(){},
+};
+
+
+
+const ponto = {
+    score: 3,
+    desenha(){
+        contexto.font = '30px "VT323"';
+        contexto.textAlign = 'right'
+        contexto.fillStyle = 'White'
+        contexto.fillText(`${ponto.score}`, canvas.width - 80, 145);
+    },
+    atualiza(){
+        ponto.score = 6;
+            
+        return ponto.score
+            
+    },
+}
 
 
 const planoDeFundo = {
@@ -91,6 +128,7 @@ const telas = {
             globais.flappyBird = criaFlappyBird();
             globais.chao = criaChao();
             globais.canos = criaCanos();
+            
            
         },
 
@@ -140,11 +178,17 @@ const telas = {
         }
     },
     gameOver: {
+        inicializa(){
+            globais.placar = criaPlacar();
+           
+        },
         desenha(){
             telaGameOver.desenha();
+            telaScore.desenha();
+            ponto.desenha();
         },
         atualiza(){
-
+            ponto.atualiza();
         },
         click(){
             mudaDeTela(telas.inicio)
