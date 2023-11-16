@@ -20,7 +20,7 @@ Jogo criado a partir dos videos do Mairo Souto para melhorar as minhas habilidad
 
 
 <p align="center"> 
-    <<img alt="projeto move the life" src="./preview.png">
+    <<img alt="flappy bird" src="./preview.png">
 </p>
 
 
